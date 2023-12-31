@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -67,6 +68,7 @@ func (cs *contacts) add(C *Contact) {
 	} else {
 		*cs = append(*cs, *C)
 	}
+	cs.saveToFile()
 }
 
 func (cs *contacts) viewContacts() {
@@ -114,6 +116,7 @@ func (cs *contacts) deleteContact() {
 
 		*cs = append((*cs)[:inputInt-1], (*cs)[inputInt:]...)
 	}
+	cs.saveToFile()
 	fmt.Printf("\n")
 }
 
@@ -127,4 +130,31 @@ func (c Contact) print() {
 	fmt.Println("State:", c.Address.State)
 	fmt.Println("Zip Code:", c.Address.ZipCode)
 	fmt.Printf("\n")
+}
+
+func getContactsFile(cs *contacts) error {
+	data, err := os.ReadFile("./contacts.json")
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(data, cs)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (cs *contacts) saveToFile() error {
+	data, err := json.Marshal(cs)
+	if err != nil {
+		return err
+	}
+
+	err = os.WriteFile("./contacts.json", data, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

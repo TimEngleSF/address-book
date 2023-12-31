@@ -10,10 +10,9 @@ import (
 var scanner *bufio.Scanner
 
 func main() {
-	glen := Contact{Name: "Glen", Email: "glen@email.com", Phone: "5105551234", Address: Address{Address: "1444 Rich St", City: "East Bay", State: "Ca", ZipCode: "99999"}}
 
 	cont := contacts{}
-	cont.add(&glen)
+	getContactsFile(&cont)
 	scanner = bufio.NewScanner(os.Stdin)
 
 	for {

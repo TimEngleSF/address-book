@@ -1,0 +1,13 @@
+[
+    {
+        "Name": "Bob",
+        "Email": "bob@email.com",
+        "Phone": "5555555555",
+        "Address": {
+            "Address": "123 Main St",
+            "City": "Big Town",
+            "State": "NY",
+            "ZipCode": "11111"
+        }
+    }
+]
